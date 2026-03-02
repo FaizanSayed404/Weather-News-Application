@@ -1,0 +1,4 @@
+customtkinter
+httpx
+Pillow
+certifi
