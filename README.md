@@ -6,9 +6,9 @@ A sleek, multithreaded desktop GUI application built with **Python** and **Custo
 
 ## 📸 Screenshots
 
-| Weather Dashboard | News Feed |
-| :---: | :---: |
-| <img src="weather_ss.png" width="400" alt="Home"> | <img src="news_ss.png" width="400" alt="Weather Tab "> | <img src="news_ss.png" width="400" alt="News Tab"> |
+| Home Dashboard | Weather Dashboard | News Feed |
+| :---: | :---: | :---: |
+| <img src="wNhome.png" width="400" alt="Home Tab "> | <img src="Weather.png" width="400" alt="Weather Tab "> | <img src="News.png" width="400" alt="News Tab"> |
 
 ---
 
