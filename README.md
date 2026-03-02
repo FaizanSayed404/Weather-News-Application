@@ -1,106 +1,74 @@
-# 📰🌦️ Weather and News Desktop Application
+# 🌦️ Weather and News Desktop Application
 
-This is a desktop GUI application developed using **Python** and **CustomTkinter** that provides users with **real-time weather updates** and **top news headlines**. It integrates APIs to fetch and display live weather and news data in a minimal, modern interface.
-
----
-
-## ✨ Features
-
-### 🌦️ **Weather Forecast**
-
-* Get current weather conditions for any **city or country**.
-* Fetches data from **WeatherAPI**.
-* Displays:
-
-  * Weather condition
-  * Wind speed
-  * Humidity
-  * Local time
-  * Weather icons
-* Error handling for invalid or blank input.
-* Real-time response display.
-
-### 📰 **Top News Headlines**
-
-* Automatically fetches **India's latest news headlines**.
-* Uses **NewsAPI** for top trending news.
-* Displays:
-
-  * News title
-  * Thumbnail image (from API or fallback)
-* Scrollable list of news cards.
-
-### 💡 **Other Highlights**
-
-* **Modern UI** using `customtkinter`
-* Responsive frames with tabbed navigation
-* Weather disclaimer included
-
----
-
-## 📦 Tech Stack
-
-| Component      | Library / Tool                                                    |
-| -------------- | ----------------------------------------------------------------- |
-| UI Framework   | [`customtkinter`](https://github.com/TomSchimansky/CustomTkinter) |
-| HTTP Requests  | [`httpx`](https://www.python-httpx.org/)                          |
-| Image Handling | `PIL (Pillow)`                                                    |
-| Weather API    | [WeatherAPI.com](https://www.weatherapi.com/)                     |
-| News API       | [NewsAPI.org](https://newsapi.org/)                               |
+A sleek, multithreaded desktop GUI application built with **Python** and **CustomTkinter**. This app provides real-time weather updates and the latest news headlines for India in a single, responsive dashboard.
 
 ---
 
 ## 📸 Screenshots
 
-> *(You can add screenshots here)*
-> Example:
-> ![App Screenshot](screenshot.png)
+| Weather Dashboard | News Feed |
+| :---: | :---: |
+| <img src="weather_ss.png" width="400" alt="Home"> | <img src="news_ss.png" width="400" alt="Weather Tab "> | <img src="news_ss.png" width="400" alt="News Tab"> |
 
 ---
 
-## 🛠️ Setup Instructions
+## 🚀 Features
 
-1. **Clone the repository**
-
-   ```bash
-   git clone https://github.com/yourusername/weather-news-app.git
-   cd weather-news-app
-   ```
-
-2. **Install dependencies**
-
-   ```bash
-   pip install customtkinter httpx pillow
-   ```
-
-3. **Update API Keys**
-
-   * Replace the API keys in the script:
-
-     * `WeatherAPI`: Replace `key=1dd086a853a94a64ab370611230404`
-     * `NewsAPI`: Replace `apiKey=9e5ec95d33b64189a7657c2e4df884b1`
-
-4. **Run the app**
-
-   ```bash
-   python app.py
-   ```
+1. **Real-time Weather:** Fetches temperature, wind speed, humidity, and local time via [WeatherAPI](https://www.weatherapi.com/).
+2. **Latest News:** Displays 100+ current headlines from India using [NewsAPI](https://newsapi.org/).
+3. **Asynchronous Loading:** Uses Python's `threading` library to fetch news data in the background, ensuring the UI never freezes.
+4. **Dynamic Content:** Automatically handles image fetching from the web with fallback thumbnail support.
+5. **Modern UI:** Built with CustomTkinter for a native, dark-themed experience.
 
 ---
 
-## 📂 Folder Structure (Optional)
+## 💻 Installation & Setup
 
-```
-weather-news-app/
-├── app.py
-├── README.md
-├── news.jpg      # Fallback image for news cards
-├── requirements.txt
-```
+### For Developers (Run from Source)
+
+1. **Clone the Repository:**
+   ```bash
+   git clone https://github.com/FaizanSayed404/Weather-News-Application.git
+   cd Weather-News-Application
+
+2. **Set up Virtual Environment:**
+   ```bash
+   python -m venv venv
+   source venv/bin/activate
+   
+3. **Install Dependencies:**
+   ```bash
+   pip install -r requirements.txt
+
+4. **Run the App:**
+   ```bash
+   python weatherandnews.py
+
+ ### For Users (Standalone Binary)
+ 
+ 1. **Download the Binary:**
+     Visit the Releases section and download the weatherandnews file.
+
+ 2. **Grant Execution Permissions:**
+    ```Bash
+    chmod +x weatherandnews
+    Launch the Application:
+    
+3. **Launch the Application:**
+   ```Bash
+   ./weatherandnews
 
 ---
 
-## 📄 License
+## 🛠️ Built With
 
-This project is open source and available under the [MIT License](LICENSE).
+1. **CustomTkinter:** Used for creating the modern, responsive UI components.
+2. **HTTPX:** A high-performance HTTP client used for all API requests.
+3. **Pillow (PIL):** Handles image processing and resizing for news thumbnails.
+4. **Threading:** Manages non-blocking background tasks to keep the UI smooth.
 
+---
+
+## 👤 Author  
+
+   **Faizan Sayed**
