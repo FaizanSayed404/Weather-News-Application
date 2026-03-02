@@ -2,6 +2,7 @@ import httpx
 import customtkinter
 from PIL import ImageTk, Image
 from io import BytesIO
+import threading
 import tkinter as tk
 
 
@@ -87,31 +88,55 @@ label_weather_text = customtkinter.CTkLabel(master=frame2, font=("", 25), pady=2
 frame3 = customtkinter.CTkScrollableFrame(master=tabview.tab("News"))
 frame3.pack(expand=True, fill="both")
 
-with httpx.Client() as client:
-    url = "https://newsapi.org/v2/top-headlines?country=in&apiKey=9e5ec95d33b64189a7657c2e4df884b1"
-    res = client.get(url)
-    if res.json()["status"] == "ok":
-        articles = res.json()["articles"]
-    for i, article in enumerate(articles):
-        title = article['title']
-        image_url = article["urlToImage"]
-        # print(image_url)
-        card = customtkinter.CTkFrame(master=frame3, corner_radius=10)
-        card.pack(fill="x", padx=8, pady=8)
-        label = customtkinter.CTkLabel(master=card, text=f"{title}", padx=8, pady=8, font=("", 14))
-        if image_url and str(image_url).endswith(".jpg") or str(image_url).endswith(".png") or str(image_url).endswith(".jpeg"):
-            response = httpx.get(str(image_url))
-            img_data = response.content
-            img = Image.open(BytesIO(img_data))
-        else :
-            img = Image.open(r"C:\Users\faiza\OneDrive\Desktop\Python Project\news.jpg")    
-    
-        
-        thumbnail = customtkinter.CTkImage(light_image=img,
-                                           dark_image=img,
-                                           size=(500, 300))
-        image_label = customtkinter.CTkLabel(image=thumbnail,text="", master=card, padx=8, pady=8)
-        image_label.pack(fill="x", expand=True)
-        label.pack()
+Sub_Img_Url = "https://images.unsplash.com/photo-1495020689067-958852a7765e?q=80&w=500&auto=format&fit=crop"
+
+def load_news_background():
+    """Starts the load_news function in a background thread to prevent freezing."""
+    threading.Thread(target=load_news, daemon=True).start()
+
+def load_news():
+    try:
+        with httpx.Client() as client:
+            url = "https://newsapi.org/v2/everything?q=India&sortBy=publishedAt&apiKey=9e5ec95d33b64189a7657c2e4df884b1"
+            res = client.get(url)
+            data = res.json()
+            
+            if data.get("status") == "ok":
+                articles = data.get("articles", [])
+                print(f"Fetched {len(articles)} articles")
+                for article in articles:
+                    title = article.get('title', 'No Title')
+                    image_url = article.get("urlToImage")
+                    
+                    card = customtkinter.CTkFrame(master=frame3, corner_radius=10)
+                    card.pack(fill="x", padx=10, pady=10)
+                    
+                    try:
+                        if image_url:
+                            img_res = client.get(str(image_url))
+                            img = Image.open(BytesIO(img_res.content))
+                        else:
+                            sub_img_res = client.get(Sub_Img_Url)
+                           
+                            img = Image.open(BytesIO(sub_img_res.content))
+                    except:
+                        img = Image.open(BytesIO(sub_img_res.content))
+
+                    thumbnail = customtkinter.CTkImage(light_image=img, dark_image=img, size=(500, 300))
+                    
+                    image_label = customtkinter.CTkLabel(master=card, image=thumbnail, text="")
+                    image_label.image = thumbnail 
+                    image_label.pack(pady=10)
+                    
+                    label = customtkinter.CTkLabel(master=card, text=title, wraplength=600, font=("", 14, "bold"))
+                    label.pack(padx=10, pady=(0, 10))
+                    app.update_idletasks()
+            else:
+                print("API Status not OK:", data.get("message"))
+    except Exception as e:
+        print(f"Network error in News: {e}")
+
+load_news_background()
 
 app.mainloop()
+
